@@ -1,0 +1,37 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Note info</title>
+<th:block th:include="fragments/headerincludes :: head"></th:block>
+</head>
+<body class="well well-sm">
+	<div class="container">
+		<div class="row text-center">
+			<th:block th:include="fragments/header :: header"></th:block>
+			<div class="col-md-6 col-md-offset-3">
+				<div class="table-responsive">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th class="text-center">Written by</th>
+								<th class="text-center">Username</th>
+								<th class="text-center">Notebook</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="text-center"
+									th:text="${note.user.firstName + ' ' + note.user.lastName}"></td>
+								<td class="text-center" th:text="${note.user.username}"></td>
+								<td class="text-center" th:text="${note.notebook.name}"></td>
+							</tr>
+						</tbody>
+					</table>
+					<a th:href="@{/}"><button class="btn btn-warning text-center">Go
+							back</button></a>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

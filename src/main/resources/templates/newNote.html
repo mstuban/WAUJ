@@ -1,0 +1,83 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<title>New note</title>
+<th:block th:include="fragments/headerincludes :: head"></th:block>
+</head>
+<body class="well well-sm">
+	<div class="container">
+		<div class="row">
+			<th:block th:include="fragments/header :: header"></th:block>
+			<div class="col-md-6 col-md-offset-3">
+				<h1>Add a new note</h1>
+				<hr />
+				<form class="form-group newNoteForm" method="POST"
+					th:object="${newNoteForm}">
+					<span sec:authorize="hasRole('ROLE_ADMIN')"><label
+						for="username">User:</label> <select th:field="*{user}"
+						class="form-control" id="userID">
+							<option value="0">Choose user</option>
+							<option th:each="user : ${users}" th:value="${user.id}"
+								th:text="${user.firstName + ' ' + user.lastName}" />
+					</select> <br /></span> <label for="notebookName">Notebook:</label> <select
+						th:field="*{notebook}" class="form-control" name="notebookName"
+						required="required">
+						<option value="">Choose notebook</option>
+						<option th:each="notebook : ${notebooks}"
+							th:value="${notebook.name}" th:text="${notebook.name}" />
+					</select> <br /> <label for="headline">Headline:</label> <input type="text"
+						th:field="*{headline}" class="form-control" name="headline"
+						required="required" /> <br /> <label for="content">Content:</label>
+					<textarea class="form-control" th:field="*{content}" id="content"
+						required="required"></textarea>
+					<br />
+					<input type="submit" class="btn btn-primary center-block"
+						name="saveButton" value="Save note" /><br />
+				</form>
+				<div class="text-center">
+					<br /> <a th:href="@{/resetNoteStatistics}"><button
+							class="btn btn-warning">Reset statistics</button></a>
+					<button type="button" class="btn btn-info" data-toggle="modal"
+						data-target="#myModal">View statistics</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Modal -->
+	<div id="myModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Note creation statistics</h4>
+				</div>
+				<div class="modal-body">
+					<table class="table table-striped">
+						<tr>
+							<th class="text-center">Headline</th>
+							<th class="text-center">Content</th>
+							<th sec:authorize="hasRole('ROLE_ADMIN')" class="text-center">User</th>
+							<th class="text-center">Notebook</th>
+							<th class="text-center">Delete</th>
+						</tr>
+						<tr th:each="note : ${notes}">
+							<td class="text-center" th:text="${note.noteHeadline}"></td>
+							<td class="text-center" th:text="${note.noteText}"></td>
+							<td sec:authorize="hasRole('ROLE_ADMIN')" class="text-center"
+								th:text="${note.user.username}"></td>
+							<td class="text-center" th:text="${note.notebook.name}"></td>
+							<td class="text-center"><a
+								th:href="@{/deleteNote/{id}(id=${note.id})}"><button
+										type="button" class="btn btn-danger">Delete</button></a></td>
+						</tr>
+					</table>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

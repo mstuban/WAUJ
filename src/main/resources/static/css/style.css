@@ -1,0 +1,15 @@
+.navbar {
+	margin-bottom: 0px;
+}
+
+#bg1 {
+	background-color: #e7e7e7;	
+}
+
+#bg2 {
+	background-color: white;
+}
+
+#logoutform{
+    display: inline;
+}

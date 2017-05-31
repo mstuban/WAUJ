@@ -1,0 +1,41 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<title>New note added</title>
+<head>
+<th:block th:include="fragments/headerincludes :: head"></th:block>
+</head>
+<body class="well well-sm">
+	<div class="container">
+		<div class="row text-center">
+			<th:block th:include="fragments/header :: header"></th:block>
+			<div class="col-md-6 col-md-offset-3">
+				<h1 th:text="${note.noteHeadline}"></h1>
+				<p th:text="${note.noteText}"></p>
+				<hr />
+				<div class="table-responsive">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th class="text-center">Written by</th>
+								<th class="text-center">Username</th>
+								<th class="text-center">Notebook</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="text-center"
+									th:text="${note.user.firstName + ' ' + note.user.lastName}"></td>
+								<td class="text-center" th:text="${note.user.username}"></td>
+								<td class="text-center" th:text="${note.notebook.name}"></td>
+							</tr>
+						</tbody>
+					</table>
+					<a th:href="@{/editNote}"><button
+							class="btn btn-info text-center">Edit note</button></a> <a
+						th:href="@{/addNewNote}"><button
+							class="btn btn-secondary text-center">Add note</button></a>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
